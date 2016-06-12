@@ -51,14 +51,16 @@ void BPStatistics::highestCoefEmpl()
 {
 	auto maxCoef = max_element(getBuildings()->begin(), getBuildings()->end(), [](Building &a, Building &b)
 	{
-		double ac = a.getNumberOfEmployees() / (a.getNumberOfEmployees() / a.getNumberOfFreeWorkingSeats());
-		double bc = b.getNumberOfEmployees() / (b.getNumberOfEmployees() / b.getNumberOfFreeWorkingSeats());
+		double ac = (double)((double)a.getNumberOfEmployees() / 
+			(double)(a.getNumberOfEmployees() + a.getNumberOfFreeWorkingSeats()));
+		double bc = (double)((double)b.getNumberOfEmployees() / 
+			(double)(b.getNumberOfEmployees() + b.getNumberOfFreeWorkingSeats()));
 		return  ac < bc;
 	});
+	double hc = (double)(maxCoef->getNumberOfEmployees() 
+		/ (maxCoef->getNumberOfEmployees() / maxCoef->getNumberOfFreeWorkingSeats()));
 
-	cout << "Company \"" << maxCoef->getCompany() << "\" has highest utilization coefficient: " <<
-		maxCoef->getNumberOfEmployees() / (maxCoef->getNumberOfEmployees() / maxCoef->getNumberOfFreeWorkingSeats()) 
-		<< endl;
+	cout << "Company \"" << maxCoef->getCompany() << "\" has highest utilization coefficient: " << hc << "%" << endl;
 }
 
 void BPStatistics::getMostPeoplePerFloor()
